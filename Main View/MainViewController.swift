@@ -15,17 +15,20 @@ class MainViewController: UIViewController {
 
     /// The largest number of predictions the main view controller displays the user.
     let predictionsToShow = 2
+    
 
     // MARK: Main storyboard outlets
     @IBOutlet weak var startupPrompts: UIStackView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var predictionLabel: UILabel!
+    
 }
 
 extension MainViewController {
     // MARK: Main storyboard actions
     /// The method the storyboard calls when the user one-finger taps the screen.
-    @IBAction func singleTap() {
+
+    @IBAction func buttonClick() {
         // Show options for the source picker only if the camera is available.
         guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
             present(photoPicker, animated: false)
@@ -33,12 +36,10 @@ extension MainViewController {
         }
 
         present(cameraPicker, animated: false)
+        
     }
-
-    /// The method the storyboard calls when the user two-finger taps the screen.
-    @IBAction func doubleTap() {
-        present(photoPicker, animated: false)
-    }
+    
+    
 }
 
 extension MainViewController {
