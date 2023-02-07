@@ -49,8 +49,12 @@
                                     <action selector="buttonClick" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="v6U-tr-XB7"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4qo-zl-toh">
+                                <rect key="frame" x="16" y="233" width="358" height="358"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <view hidden="YES" contentMode="scaleToFill" semanticContentAttribute="playback" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F7f-ZV-5pr" userLabel="Prediction View">
-                                <rect key="frame" x="91" y="152" width="208" height="64"/>
+                                <rect key="frame" x="91" y="113" width="208" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Predictions go here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmt-pk-Cvs" userLabel="Prediction Label">
                                         <rect key="frame" x="20" y="20" width="169.66666666666666" height="24"/>
@@ -77,12 +81,14 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="imageView" destination="4qo-zl-toh" id="LbH-BA-S4a"/>
+                        <outlet property="predictionLabel" destination="zmt-pk-Cvs" id="Gj2-fi-B55"/>
                         <outlet property="startupPrompts" destination="Ff1-e9-ozN" id="3Jz-Jc-D3r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139.13043478260872" y="137.94642857142856"/>
+            <point key="canvasLocation" x="138.46153846153845" y="137.91469194312796"/>
         </scene>
     </scenes>
     <resources>

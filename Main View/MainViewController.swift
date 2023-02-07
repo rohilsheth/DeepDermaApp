@@ -14,7 +14,7 @@ class MainViewController: UIViewController {
     let imagePredictor = ImagePredictor()
 
     /// The largest number of predictions the main view controller displays the user.
-    let predictionsToShow = 2
+    let predictionsToShow = 1
     
 
     // MARK: Main storyboard outlets
@@ -121,8 +121,10 @@ extension MainViewController {
             if let firstComma = name.firstIndex(of: ",") {
                 name = String(name.prefix(upTo: firstComma))
             }
+              return "The skin patch is of severity: \(name)"
 
-            return "\(name) - \(prediction.confidencePercentage)%"
+
+//            return "\(name) - \(prediction.confidencePercentage)"
         }
 
         return topPredictions
