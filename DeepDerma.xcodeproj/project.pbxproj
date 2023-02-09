@@ -11,7 +11,7 @@
 		11063F641EC0EECC0033EE6D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11063F631EC0EECC0033EE6D /* MainViewController.swift */; };
 		11063F691EC0EECC0033EE6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11063F681EC0EECC0033EE6D /* Assets.xcassets */; };
 		11063F741EC0F5270033EE6D /* CGImagePropertyOrientation+UIImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11063F731EC0F5270033EE6D /* CGImagePropertyOrientation+UIImageOrientation.swift */; };
-		4E27FB742992A6C400186ADC /* AcneModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4E27FB732992A6C400186ADC /* AcneModel.mlmodel */; };
+		4E27FB78299409AB00186ADC /* AcneModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4E27FB77299409AA00186ADC /* AcneModel.mlmodel */; };
 		EB6D4EB526BA5A0000DCF755 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6D4EB326BA5A0000DCF755 /* LaunchScreen.storyboard */; };
 		EB6D4EBA26BA5A2F00DCF755 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6D4EB826BA5A2F00DCF755 /* Main.storyboard */; };
 		EB9D7ECA26C2D39400039949 /* MainViewController+PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9D7EC926C2D39400039949 /* MainViewController+PhotoPicker.swift */; };
@@ -27,7 +27,7 @@
 		11063F681EC0EECC0033EE6D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11063F6D1EC0EECC0033EE6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11063F731EC0F5270033EE6D /* CGImagePropertyOrientation+UIImageOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImagePropertyOrientation+UIImageOrientation.swift"; sourceTree = "<group>"; };
-		4E27FB732992A6C400186ADC /* AcneModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = AcneModel.mlmodel; path = ../../../.Trash/AcneModel.mlmodel; sourceTree = "<group>"; };
+		4E27FB77299409AA00186ADC /* AcneModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = AcneModel.mlmodel; path = ../../../Downloads/AcneModel.mlmodel; sourceTree = "<group>"; };
 		7A862B3053580E92D52AA6E3 /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 		83D09BCE84BD8F0B0100E8B3 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		C858E5CC1ECA99CC006C5CAA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 		EB6D4EAD26BA56E500DCF755 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4E27FB732992A6C400186ADC /* AcneModel.mlmodel */,
+				4E27FB77299409AA00186ADC /* AcneModel.mlmodel */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -173,7 +173,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 11063F591EC0EECC0033EE6D /* Build configuration list for PBXProject "Vision+Core-ML" */;
+			buildConfigurationList = 11063F591EC0EECC0033EE6D /* Build configuration list for PBXProject "DeepDerma" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -209,13 +209,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E27FB78299409AB00186ADC /* AcneModel.mlmodel in Sources */,
 				EBE769EA26CC7DDD002B6CF0 /* VNClassificationObservation+confidenceString.swift in Sources */,
 				EB9D7ECA26C2D39400039949 /* MainViewController+PhotoPicker.swift in Sources */,
 				11063F741EC0F5270033EE6D /* CGImagePropertyOrientation+UIImageOrientation.swift in Sources */,
 				11063F641EC0EECC0033EE6D /* MainViewController.swift in Sources */,
 				11063F621EC0EECC0033EE6D /* AppDelegate.swift in Sources */,
 				EB9D7ECE26C2D78300039949 /* ImagePredictor.swift in Sources */,
-				4E27FB742992A6C400186ADC /* AcneModel.mlmodel in Sources */,
 				EB9D7ECC26C2D5F800039949 /* MainViewController+CameraPicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -400,7 +400,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		11063F591EC0EECC0033EE6D /* Build configuration list for PBXProject "Vision+Core-ML" */ = {
+		11063F591EC0EECC0033EE6D /* Build configuration list for PBXProject "DeepDerma" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				11063F6E1EC0EECC0033EE6D /* Debug */,

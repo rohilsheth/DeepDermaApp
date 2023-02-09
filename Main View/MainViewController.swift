@@ -21,6 +21,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var startupPrompts: UIStackView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var predictionLabel: UILabel!
+    @IBOutlet weak var recommendationLabel: UILabel!
+    @IBOutlet weak var logo: UIImageView!
     
 }
 
@@ -55,9 +57,10 @@ extension MainViewController {
     /// Updates the storyboard's prediction label.
     /// - Parameter message: A prediction or message string.
     /// - Tag: updatePredictionLabel
-    func updatePredictionLabel(_ message: String) {
+    func updatePredictionLabel(_ message1: String, _ message2: String) {
         DispatchQueue.main.async {
-            self.predictionLabel.text = message
+            self.predictionLabel.text = message1
+            self.recommendationLabel.text = message2
         }
 
         if firstRun {
@@ -65,14 +68,18 @@ extension MainViewController {
                 self.firstRun = false
                 self.predictionLabel.superview?.isHidden = false
                 self.startupPrompts.isHidden = true
+                self.recommendationLabel.superview?.isHidden = false
+                self.logo.isHidden = true
             }
         }
     }
+    
+    
     /// Notifies the view controller when a user selects a photo in the camera picker or photo library picker.
     /// - Parameter photo: A photo from the camera or photo library.
     func userSelectedPhoto(_ photo: UIImage) {
         updateImage(photo)
-        updatePredictionLabel("Making predictions for the photo...")
+        updatePredictionLabel("Making predictions for the photo...", "Generating recommendations...")
 
         DispatchQueue.global(qos: .userInitiated).async {
             self.classifyImage(photo)
@@ -99,34 +106,71 @@ extension MainViewController {
     /// - Tag: imagePredictionHandler
     private func imagePredictionHandler(_ predictions: [ImagePredictor.Prediction]?) {
         guard let predictions = predictions else {
-            updatePredictionLabel("No predictions. (Check console log.)")
+            updatePredictionLabel("No predictions. (Check console log.)","No recommendations.")
             return
         }
 
-        let formattedPredictions = formatPredictions(predictions)
+        let formattedPredictions = formatPredictions(predictions)[0].0
 
-        let predictionString = formattedPredictions.joined(separator: "\n")
-        updatePredictionLabel(predictionString)
+        let predictionString = formattedPredictions
+        let recommendationString = formatPredictions(predictions)[0].1
+        updatePredictionLabel(predictionString, recommendationString)
     }
 
     /// Converts a prediction's observations into human-readable strings.
     /// - Parameter observations: The classification observations from a Vision request.
     /// - Tag: formatPredictions
-    private func formatPredictions(_ predictions: [ImagePredictor.Prediction]) -> [String] {
+    private func formatPredictions(_ predictions: [ImagePredictor.Prediction]) -> [(String,String)] {
         // Vision sorts the classifications in descending confidence order.
-        let topPredictions: [String] = predictions.prefix(predictionsToShow).map { prediction in
+        let topPredictions: [(String, String)] = predictions.prefix(predictionsToShow).map { prediction in
             var name = prediction.classification
 
             // For classifications with more than one name, keep the one before the first comma.
             if let firstComma = name.firstIndex(of: ",") {
                 name = String(name.prefix(upTo: firstComma))
             }
-              return "The skin patch is of severity: \(name)"
+            var sev = ""
+            var treatment = ""
+            if name == "0" {
+                sev = "Clear"
+                treatment = "No treatment necessary."
+            }
+            else if name == "1" {
+                sev = "Almost Clear"
+                treatment = "Benzoyl peroxide wash and/or a mild topical retinoid."
+            }
+            else if name == "2" {
+                sev = "Mild"
+                treatment = "Benzoyl peroxide wash and a topical retinoid."
+            }
+            else if name == "3" {
+                sev = "Mild to Moderate"
+                treatment = "Benzoyl peroxide wash and a stronger topical retinoid or a topical retinoid. Possible consideration of an oral antibiotic."
+            }
+            else if name == "4" {
+                sev = "Moderate"
+                treatment = "Benzoyl peroxide wash, topical treatment, and an oral antibiotic."
+            }
+            else if name == "5" {
+                sev = "Moderate to Severe"
+                treatment = "Benzoyl peroxide wash, topical treatment, and an oral antibiotic. Start considering Isotretinoin"
+            }
+            else if name == "6" {
+                sev = "Severe"
+                treatment = "Benzoyl peroxide wash, topical treatment, and an oral antibiotic. Recommend Isoretinoin."
+            }
+            else if name == "7" {
+                sev = "More Severe"
+                treatment = "Place on Isotretonin, along with Benzoyl peroxide wash, topical treatment, and an oral antibiotic. In very severe circumstances, start with lower dosage of Isotretinoin and add corticosteroids."
+            }
+     
+              return ("Severity Level of: \(sev)",treatment)
+            
 
 
 //            return "\(name) - \(prediction.confidencePercentage)"
         }
 
-        return topPredictions
+        return (topPredictions)
     }
 }
