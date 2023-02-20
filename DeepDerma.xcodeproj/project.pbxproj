@@ -12,6 +12,8 @@
 		11063F691EC0EECC0033EE6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11063F681EC0EECC0033EE6D /* Assets.xcassets */; };
 		11063F741EC0F5270033EE6D /* CGImagePropertyOrientation+UIImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11063F731EC0F5270033EE6D /* CGImagePropertyOrientation+UIImageOrientation.swift */; };
 		4E27FB78299409AB00186ADC /* AcneModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4E27FB77299409AA00186ADC /* AcneModel.mlmodel */; };
+		4EC672CA29A3FA4F00E1F8C6 /* ModelHistory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4EC672C829A3FA4E00E1F8C6 /* ModelHistory.xcdatamodeld */; };
+		4EC672D029A4119300E1F8C6 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC672CF29A4119300E1F8C6 /* HistoryTableViewController.swift */; };
 		EB6D4EB526BA5A0000DCF755 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6D4EB326BA5A0000DCF755 /* LaunchScreen.storyboard */; };
 		EB6D4EBA26BA5A2F00DCF755 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6D4EB826BA5A2F00DCF755 /* Main.storyboard */; };
 		EB9D7ECA26C2D39400039949 /* MainViewController+PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9D7EC926C2D39400039949 /* MainViewController+PhotoPicker.swift */; };
@@ -28,6 +30,8 @@
 		11063F6D1EC0EECC0033EE6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11063F731EC0F5270033EE6D /* CGImagePropertyOrientation+UIImageOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImagePropertyOrientation+UIImageOrientation.swift"; sourceTree = "<group>"; };
 		4E27FB77299409AA00186ADC /* AcneModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = AcneModel.mlmodel; path = ../../../Downloads/AcneModel.mlmodel; sourceTree = "<group>"; };
+		4EC672C929A3FA4F00E1F8C6 /* ModelHistory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelHistory.xcdatamodel; sourceTree = "<group>"; };
+		4EC672CF29A4119300E1F8C6 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		7A862B3053580E92D52AA6E3 /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 		83D09BCE84BD8F0B0100E8B3 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		C858E5CC1ECA99CC006C5CAA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -61,6 +65,7 @@
 		11063F551EC0EECC0033EE6D = {
 			isa = PBXGroup;
 			children = (
+				4EC672C829A3FA4E00E1F8C6 /* ModelHistory.xcdatamodeld */,
 				C858E5CC1ECA99CC006C5CAA /* README.md */,
 				C82A1C951F1809F5005996F6 /* Main View */,
 				EBB87B3126C2EC2300AB49D8 /* Image Predictor */,
@@ -107,6 +112,7 @@
 				EB9D7ECB26C2D5F800039949 /* MainViewController+CameraPicker.swift */,
 				EB9D7EC926C2D39400039949 /* MainViewController+PhotoPicker.swift */,
 				EB6D4EB826BA5A2F00DCF755 /* Main.storyboard */,
+				4EC672CF29A4119300E1F8C6 /* HistoryTableViewController.swift */,
 			);
 			path = "Main View";
 			sourceTree = "<group>";
@@ -212,9 +218,11 @@
 				4E27FB78299409AB00186ADC /* AcneModel.mlmodel in Sources */,
 				EBE769EA26CC7DDD002B6CF0 /* VNClassificationObservation+confidenceString.swift in Sources */,
 				EB9D7ECA26C2D39400039949 /* MainViewController+PhotoPicker.swift in Sources */,
+				4EC672CA29A3FA4F00E1F8C6 /* ModelHistory.xcdatamodeld in Sources */,
 				11063F741EC0F5270033EE6D /* CGImagePropertyOrientation+UIImageOrientation.swift in Sources */,
 				11063F641EC0EECC0033EE6D /* MainViewController.swift in Sources */,
 				11063F621EC0EECC0033EE6D /* AppDelegate.swift in Sources */,
+				4EC672D029A4119300E1F8C6 /* HistoryTableViewController.swift in Sources */,
 				EB9D7ECE26C2D78300039949 /* ImagePredictor.swift in Sources */,
 				EB9D7ECC26C2D5F800039949 /* MainViewController+CameraPicker.swift in Sources */,
 			);
@@ -419,6 +427,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4EC672C829A3FA4E00E1F8C6 /* ModelHistory.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4EC672C929A3FA4F00E1F8C6 /* ModelHistory.xcdatamodel */,
+			);
+			currentVersion = 4EC672C929A3FA4F00E1F8C6 /* ModelHistory.xcdatamodel */;
+			path = ModelHistory.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 11063F561EC0EECC0033EE6D /* Project object */;
 }

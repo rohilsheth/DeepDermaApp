@@ -6,6 +6,7 @@ The view controller that selects an image and makes a prediction using Vision an
 */
 
 import UIKit
+import CoreData
 
 class MainViewController: UIViewController {
     var firstRun = true
@@ -15,6 +16,7 @@ class MainViewController: UIViewController {
 
     /// The largest number of predictions the main view controller displays the user.
     let predictionsToShow = 1
+    var modelResults: [NSManagedObject] = []
     
 
     // MARK: Main storyboard outlets
@@ -25,6 +27,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var logo: UIImageView!
     
 }
+
+
 
 extension MainViewController {
     // MARK: Main storyboard actions
@@ -53,14 +57,48 @@ extension MainViewController {
             self.imageView.image = image
         }
     }
+    func save(severity: String, rec: String, time: String) {
+        guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        // 1
+        let managedContext =
+        appDelegate.persistentContainer.viewContext
+        
+        // 2
+        let entity =
+        NSEntityDescription.entity(forEntityName: "ScanResult",
+                                   in: managedContext)!
+        
+        let modresult = NSManagedObject(entity: entity,
+                                        insertInto: managedContext)
+        
+        // 3
+        modresult.setValue(severity, forKeyPath: "prediction")
+        modresult.setValue(rec, forKeyPath: "recommendation")
+        modresult.setValue(time, forKey: "time")
+        
+        // 4
+        do {
+            try managedContext.save()
+            modelResults.append(modresult)
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
 
     /// Updates the storyboard's prediction label.
     /// - Parameter message: A prediction or message string.
     /// - Tag: updatePredictionLabel
-    func updatePredictionLabel(_ message1: String, _ message2: String) {
+    func updatePredictionLabel(_ message1: String, _ message2: String, _ message3: String) {
         DispatchQueue.main.async {
             self.predictionLabel.text = message1
             self.recommendationLabel.text = message2
+        }
+        if message3 != "Time..." {
+            save(severity: message1, rec: message2, time: message3)
         }
 
         if firstRun {
@@ -79,7 +117,7 @@ extension MainViewController {
     /// - Parameter photo: A photo from the camera or photo library.
     func userSelectedPhoto(_ photo: UIImage) {
         updateImage(photo)
-        updatePredictionLabel("Making predictions for the photo...", "Generating recommendations...")
+        updatePredictionLabel("Making predictions for the photo...", "Generating recommendations...", "Time...")
 
         DispatchQueue.global(qos: .userInitiated).async {
             self.classifyImage(photo)
@@ -106,7 +144,7 @@ extension MainViewController {
     /// - Tag: imagePredictionHandler
     private func imagePredictionHandler(_ predictions: [ImagePredictor.Prediction]?) {
         guard let predictions = predictions else {
-            updatePredictionLabel("No predictions. (Check console log.)","No recommendations.")
+            updatePredictionLabel("No predictions. (Check console log.)","No recommendations.","No Time")
             return
         }
 
@@ -114,17 +152,20 @@ extension MainViewController {
 
         let predictionString = formattedPredictions
         let recommendationString = formatPredictions(predictions)[0].1
-        updatePredictionLabel(predictionString, recommendationString)
+        let timeString = formatPredictions(predictions)[0].2
+        updatePredictionLabel(predictionString, recommendationString, timeString)
     }
+    
+    
 
     /// Converts a prediction's observations into human-readable strings.
     /// - Parameter observations: The classification observations from a Vision request.
     /// - Tag: formatPredictions
-    private func formatPredictions(_ predictions: [ImagePredictor.Prediction]) -> [(String,String)] {
+    private func formatPredictions(_ predictions: [ImagePredictor.Prediction]) -> [(String,String,String)] {
         // Vision sorts the classifications in descending confidence order.
-        let topPredictions: [(String, String)] = predictions.prefix(predictionsToShow).map { prediction in
+        let topPredictions: [(String, String, String)] = predictions.prefix(predictionsToShow).map { prediction in
             var name = prediction.classification
-
+            
             // For classifications with more than one name, keep the one before the first comma.
             if let firstComma = name.firstIndex(of: ",") {
                 name = String(name.prefix(upTo: firstComma))
@@ -163,14 +204,26 @@ extension MainViewController {
                 sev = "More Severe"
                 treatment = "Place on Isotretonin, along with Benzoyl peroxide wash, topical treatment, and an oral antibiotic. In very severe circumstances, start with lower dosage of Isotretinoin and add corticosteroids."
             }
-     
-              return ("Severity Level of: \(sev)",treatment)
+            let dateFormatter = DateFormatter()
+            let date = Date()
+            dateFormatter.dateStyle = .long
+            dateFormatter.timeStyle = .short
+            let time = dateFormatter.string(from: date)
             
-
-
-//            return "\(name) - \(prediction.confidencePercentage)"
+            return ("Severity Level of: \(sev)",treatment, time)
+            
+            
+            
+            
+            
+            
+            
+            //            return "\(name) - \(prediction.confidencePercentage)"
         }
 
         return (topPredictions)
     }
 }
+
+ 
+
