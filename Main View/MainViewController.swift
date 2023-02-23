@@ -8,7 +8,7 @@ The view controller that selects an image and makes a prediction using Vision an
 import UIKit
 import CoreData
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UITextFieldDelegate {
     var firstRun = true
 
     /// A predictor instance that uses Vision and Core ML to generate prediction strings from a photo.
@@ -25,7 +25,14 @@ class MainViewController: UIViewController {
     @IBOutlet weak var predictionLabel: UILabel!
     @IBOutlet weak var recommendationLabel: UILabel!
     @IBOutlet weak var logo: UIImageView!
+    @IBOutlet weak var textField: UITextField!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        textField.delegate = self
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
 }
 
 
@@ -44,8 +51,14 @@ extension MainViewController {
         present(cameraPicker, animated: false)
         
     }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
-    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
 
 extension MainViewController {
@@ -79,6 +92,7 @@ extension MainViewController {
         modresult.setValue(severity, forKeyPath: "prediction")
         modresult.setValue(rec, forKeyPath: "recommendation")
         modresult.setValue(time, forKey: "time")
+        modresult.setValue(textField.text, forKey: "patientname")
         
         // 4
         do {

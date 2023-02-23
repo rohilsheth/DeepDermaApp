@@ -10,7 +10,10 @@ import UIKit
 import CoreData
 
 class HistoryTableViewController: UITableViewController {
-    var modelResults: [NSManagedObject] = []
+    var modelResults: [NSFetchRequestResult] = []
+    var numPatientsMO: [NSManagedObject] = []
+    var uniqueValuesCount = 0
+    var patientNames: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,14 +38,14 @@ class HistoryTableViewController: UITableViewController {
         appDelegate.persistentContainer.viewContext
       
       //2
-      let fetchRequest =
-        NSFetchRequest<NSManagedObject>(entityName: "ScanResult")
-      
-      //3
-      do {
-        modelResults = try managedContext.fetch(fetchRequest)
-      } catch let error as NSError {
-        print("Could not fetch. \(error), \(error.userInfo)")
+        let fetchRequest2 = NSFetchRequest<NSFetchRequestResult>(entityName: "ScanResult")
+        fetchRequest2.resultType = .dictionaryResultType
+        fetchRequest2.propertiesToFetch = ["patientname"]
+        fetchRequest2.returnsDistinctResults = true
+        
+      if let results = try? managedContext.fetch(fetchRequest2) as? [[String:Any]] {
+          patientNames = results.compactMap({ $0["patientname"] as? String })
+          tableView.reloadData()
       }
     }
 
@@ -51,28 +54,39 @@ class HistoryTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return patientNames.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return modelResults.count
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {fatalError("Unable to get app delegate")}
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<ScanResult>(entityName: "ScanResult")
+        fetchRequest.predicate = NSPredicate(format: "patientname == %@", patientNames[section])
+        let results = try? managedContext.fetch(fetchRequest)
+        return results?.count ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "modelResult", for: indexPath)
         // Configure the cell...
-        let modresult = modelResults[indexPath.row]
-        cell.textLabel?.text = modresult.value(forKeyPath: "time") as? String
-        cell.detailTextLabel?.text = modresult.value(forKeyPath: "prediction") as? String
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {fatalError("Unable to get app delegate")}
         
-
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<ScanResult>(entityName: "ScanResult")
+        fetchRequest.predicate = NSPredicate(format: "patientname == %@", patientNames[indexPath.section])
+        fetchRequest.fetchLimit = 1
+        fetchRequest.fetchOffset = indexPath.row
+        if let result = try? managedContext.fetch(fetchRequest).first {
+            cell.textLabel?.text = result.time
+            cell.detailTextLabel?.text = result.prediction
+        }
 
         return cell
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Section \(section)"
+        return patientNames[section]
     }
     
 
