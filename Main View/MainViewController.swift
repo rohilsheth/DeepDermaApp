@@ -27,11 +27,19 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var textField: UITextField!
     
+
+    
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         textField.delegate = self
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
+        self.predictionLabel.layer.cornerRadius = 10
+        self.recommendationLabel.layer.cornerRadius = 10
+
+
     }
 }
 
@@ -41,7 +49,7 @@ extension MainViewController {
     // MARK: Main storyboard actions
     /// The method the storyboard calls when the user one-finger taps the screen.
 
-    @IBAction func buttonClick() {
+    @IBAction func scanButtonClick() {
         // Show options for the source picker only if the camera is available.
         guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
             present(photoPicker, animated: false)
@@ -51,6 +59,14 @@ extension MainViewController {
         present(cameraPicker, animated: false)
         
     }
+    
+    @IBAction func choosePhotoButtonClick() {
+        // Show options for the source picker only if the camera is available.
+
+        present(photoPicker, animated: false)
+        
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -65,41 +81,46 @@ extension MainViewController {
     // MARK: Main storyboard updates
     /// Updates the storyboard's image view.
     /// - Parameter image: An image.
+    ///
+    
     func updateImage(_ image: UIImage) {
         DispatchQueue.main.async {
             self.imageView.image = image
         }
     }
     func save(severity: String, rec: String, time: String) {
-        guard let appDelegate =
-                UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
-        // 1
-        let managedContext =
-        appDelegate.persistentContainer.viewContext
-        
-        // 2
-        let entity =
-        NSEntityDescription.entity(forEntityName: "ScanResult",
-                                   in: managedContext)!
-        
-        let modresult = NSManagedObject(entity: entity,
-                                        insertInto: managedContext)
-        
-        // 3
-        modresult.setValue(severity, forKeyPath: "prediction")
-        modresult.setValue(rec, forKeyPath: "recommendation")
-        modresult.setValue(time, forKey: "time")
-        modresult.setValue(textField.text, forKey: "patientname")
-        
-        // 4
-        do {
-            try managedContext.save()
-            modelResults.append(modresult)
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
+        DispatchQueue.main.async {
+            guard let appDelegate =
+                    UIApplication.shared.delegate as? AppDelegate else {
+                return
+            }
+            
+            
+            // 1
+            let managedContext =
+            appDelegate.persistentContainer.viewContext
+            
+            // 2
+            let entity =
+            NSEntityDescription.entity(forEntityName: "ScanResult",
+                                       in: managedContext)!
+            
+            let modresult = NSManagedObject(entity: entity,
+                                            insertInto: managedContext)
+            
+            // 3
+            modresult.setValue(severity, forKeyPath: "prediction")
+            modresult.setValue(rec, forKeyPath: "recommendation")
+            modresult.setValue(time, forKey: "time")
+            modresult.setValue(self.textField.text, forKey: "patientname")
+            
+            // 4
+            do {
+                try managedContext.save()
+                self.modelResults.append(modresult)
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
         }
     }
 

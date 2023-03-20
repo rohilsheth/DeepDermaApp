@@ -11,7 +11,7 @@
 		11063F641EC0EECC0033EE6D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11063F631EC0EECC0033EE6D /* MainViewController.swift */; };
 		11063F691EC0EECC0033EE6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11063F681EC0EECC0033EE6D /* Assets.xcassets */; };
 		11063F741EC0F5270033EE6D /* CGImagePropertyOrientation+UIImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11063F731EC0F5270033EE6D /* CGImagePropertyOrientation+UIImageOrientation.swift */; };
-		4E27FB78299409AB00186ADC /* AcneModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4E27FB77299409AA00186ADC /* AcneModel.mlmodel */; };
+		4E3CCEF029C4F36100AD9EED /* AcneModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4E3CCEEF29C4F36100AD9EED /* AcneModel.mlmodel */; };
 		4EC672CA29A3FA4F00E1F8C6 /* ModelHistory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4EC672C829A3FA4E00E1F8C6 /* ModelHistory.xcdatamodeld */; };
 		4EC672D029A4119300E1F8C6 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC672CF29A4119300E1F8C6 /* HistoryTableViewController.swift */; };
 		EB6D4EB526BA5A0000DCF755 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6D4EB326BA5A0000DCF755 /* LaunchScreen.storyboard */; };
@@ -29,7 +29,7 @@
 		11063F681EC0EECC0033EE6D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11063F6D1EC0EECC0033EE6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11063F731EC0F5270033EE6D /* CGImagePropertyOrientation+UIImageOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImagePropertyOrientation+UIImageOrientation.swift"; sourceTree = "<group>"; };
-		4E27FB77299409AA00186ADC /* AcneModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = AcneModel.mlmodel; path = ../../../Downloads/AcneModel.mlmodel; sourceTree = "<group>"; };
+		4E3CCEEF29C4F36100AD9EED /* AcneModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = AcneModel.mlmodel; path = ../../../Downloads/AcneModel.mlmodel; sourceTree = "<group>"; };
 		4EC672C929A3FA4F00E1F8C6 /* ModelHistory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelHistory.xcdatamodel; sourceTree = "<group>"; };
 		4EC672CF29A4119300E1F8C6 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		7A862B3053580E92D52AA6E3 /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 		EB6D4EAD26BA56E500DCF755 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4E27FB77299409AA00186ADC /* AcneModel.mlmodel */,
+				4E3CCEEF29C4F36100AD9EED /* AcneModel.mlmodel */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -215,9 +215,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E27FB78299409AB00186ADC /* AcneModel.mlmodel in Sources */,
 				EBE769EA26CC7DDD002B6CF0 /* VNClassificationObservation+confidenceString.swift in Sources */,
 				EB9D7ECA26C2D39400039949 /* MainViewController+PhotoPicker.swift in Sources */,
+				4E3CCEF029C4F36100AD9EED /* AcneModel.mlmodel in Sources */,
 				4EC672CA29A3FA4F00E1F8C6 /* ModelHistory.xcdatamodeld in Sources */,
 				11063F741EC0F5270033EE6D /* CGImagePropertyOrientation+UIImageOrientation.swift in Sources */,
 				11063F641EC0EECC0033EE6D /* MainViewController.swift in Sources */,

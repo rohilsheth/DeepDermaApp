@@ -25,6 +25,21 @@ class HistoryTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
     }
+    @IBAction func clearButtonTapped(_ sender: UIButton) {
+    
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        let fetchRequest: NSFetchRequest<ScanResult> = ScanResult.fetchRequest()
+        let scanResults = try! context.fetch(fetchRequest)
+        
+        for scanResult in scanResults {
+            context.delete(scanResult)
+        }
+        
+        try! context.save()
+        tableView.reloadData()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       
